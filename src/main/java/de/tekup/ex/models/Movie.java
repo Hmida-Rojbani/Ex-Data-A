@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -31,9 +33,11 @@ public class Movie {
 	
 	private byte color;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Studio studio;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "starsIn",
 	joinColumns = @JoinColumn(name = "movie"),

@@ -35,8 +35,13 @@ public class CinemaServiceImpl implements CinemaService{
 
 	@Override
 	public List<Movie> getCloredMovieByStudio(String studioName) {
-		// TODO Auto-generated method stub
-		return null;
+		Studio studio = reposStudio.findById(studioName)
+				.orElseThrow(()-> new NoSuchElementException("No Studio with this name"));
+		
+		return studio.getMovies()
+				.stream()
+				.filter(movie -> movie.getColor() == 1)
+				.collect(Collectors.toList());
 	}
 
 }

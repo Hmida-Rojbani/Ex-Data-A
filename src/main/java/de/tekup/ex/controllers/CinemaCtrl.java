@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.tekup.ex.models.Movie;
 import de.tekup.ex.models.Studio;
 import de.tekup.ex.services.CinemaService;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,11 @@ public class CinemaCtrl {
 	@GetMapping("/star/{name}/studios")
 	public List<Studio> getStudios(@PathVariable("name") String starName){
 		return service.getStudiosByStar(starName);
+	}
+	
+	@GetMapping("/studio/{name}/movies")
+	public List<Movie> getMovies(@PathVariable("name") String studioName){
+		return service.getCloredMovieByStudio(studioName);
 	}
 	
 	@ExceptionHandler(NoSuchElementException.class)
