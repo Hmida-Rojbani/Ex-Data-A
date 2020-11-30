@@ -1,6 +1,10 @@
 package de.tekup.ex.services;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -42,6 +46,38 @@ public class CinemaServiceImpl implements CinemaService{
 				.stream()
 				.filter(movie -> movie.getColor() == 1)
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Map<Character, Long> getMaleAndFemaleBornInPeriod(LocalDate dateBegin, LocalDate dateEnd) {
+		/**
+		List<Star> stars = reposStar.findAll();
+		List<Star> acceptedStars  = new ArrayList<>();
+		int male=0, female=0;
+		for (Star star : stars) {
+			if(star.getBirthDate().isAfter(dateBegin) && star.getBirthDate().isBefore(dateEnd)) {
+				acceptedStars.add(star);
+			}
+		}
+		
+		for (Star star : acceptedStars) {
+			if(star.getGendre()=='F' || star.getGendre()=='f') {
+				female++;
+			}else {
+				male++;
+			}
+		}
+		
+		Map<Character, Integer> map = new HashMap<>();
+		map.put('F', female);
+		map.put('M', male);
+		
+		//return map;
+		*/
+		return reposStar.findAll()
+				.stream()
+				.filter(star -> star.getBirthDate().isAfter(dateBegin) && star.getBirthDate().isBefore(dateEnd))
+				.collect(Collectors.groupingBy(star-> star.getGendre(), Collectors.counting()));
 	}
 
 }

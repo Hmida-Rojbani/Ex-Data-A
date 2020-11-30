@@ -1,6 +1,8 @@
 package de.tekup.ex.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,14 @@ public class CinemaCtrl {
 	@GetMapping("/studio/{name}/movies")
 	public List<Movie> getMovies(@PathVariable("name") String studioName){
 		return service.getCloredMovieByStudio(studioName);
+	}
+	
+	@GetMapping("/stars/{dateBegin}/{dateEnd}")
+	public Map<Character, Long> getMaleAndFemaleBornInPeriod(@PathVariable("dateBegin") String dBegin,
+			@PathVariable("dateEnd") String dEnd){
+		LocalDate dateBegin = LocalDate.parse(dBegin);
+		LocalDate dateEnd = LocalDate.parse(dEnd);
+		 return service.getMaleAndFemaleBornInPeriod(dateBegin, dateEnd);
 	}
 	
 	@ExceptionHandler(NoSuchElementException.class)
